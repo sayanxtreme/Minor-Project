@@ -2,18 +2,20 @@
 #include "stdafx.h"
 #include<opencv2\core\core.hpp>
 #include<opencv2\highgui\highgui.hpp>
+#include<opencv2\opencv.hpp>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<iostream>
+#include "starter.h"
 #include<conio.h>
-#include<opencv2\opencv.hpp>
-using namespace std;
+
 using namespace cv;
 int main()
 {
 	
-
+	startscreen();
+	_getch();
+	system("cls");
 	CvHaarClassifierCascade* frontal_cascade;								//declare cascade file
 	frontal_cascade = (CvHaarClassifierCascade*)cvLoad("haarcascade_frontalface_alt.xml", 0, 0, 0);		//call cascade file
 
@@ -33,8 +35,7 @@ int main()
 		strcat_s(path, extn);
 		//printf("%s\n",path);
 
-		IplImage* img = cvLoadImage(path, 1);
-		//IplImage* img = cvLoadImage("C:/Users/Sayan/Pictures/trial.jpg", 1);							//including the source image file
+		IplImage* img = cvLoadImage(path, 1);													//including the source image file
 		IplImage* gray = cvCreateImage(cvSize(img->width, img->height), 8, 1);					//create a grayscale blank image file
 
 		const int DETECTION_WIDTH = 320;
@@ -86,7 +87,10 @@ int main()
 				strcat_s(path1, file1);
 				strcat_s(path1, extn1);
 				printf_s("%s\n", path1);
-				cvSaveImage(path1, cut);
+				IplImage* small_cut= cvCreateImage(cvSize(60,60), 8, 1);
+				cvResize(cut, small_cut, CV_INTER_LINEAR);
+				cvSaveImage(path1, small_cut);
+				cvReleaseImage(&small_cut);
 			}
 		}
 		
@@ -113,7 +117,7 @@ int main()
 		cvNamedWindow("equilisedimg", CV_WINDOW_AUTOSIZE);							//showing equilized image
 		cvShowImage("equilisedimg", equi_img);
 
-		cvWaitKey(1);
+		//cvWaitKey(0);
 		cvDestroyWindow("Original");
 		cvDestroyWindow("smallimg");
 		cvDestroyWindow("grayimg");
@@ -129,6 +133,7 @@ int main()
 
 	printf_s("\n\nNo. of faces detected:\t%d", count);
 	printf_s("\n\nNo. of faces extracted:\t%d", count1);
+
 	_getch();
 	return 0;
 }
