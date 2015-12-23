@@ -25,9 +25,9 @@ int main()
 	
 	int j,count=0,count1=0,x=0;
 
-	for (j = 1; j <=38; j++)
+	for (j = 1; j <=38; j++)		//replace 38 with no. of images in dataset
 	{
-		char path[50] = "E:/python opencv project/minor_test/";
+		char path[50] = "E:/python opencv project/minor_test/";		//give path of your dataset folder
 		char file[4];
 		char extn[5] = ".jpg";
 		sprintf_s(file, "%d", j);
@@ -35,7 +35,12 @@ int main()
 		strcat_s(path, extn);
 		//printf("%s\n",path);
 
+<<<<<<< HEAD
 		IplImage* img = cvLoadImage(path, 1);													//including the source image file
+=======
+		IplImage* img = cvLoadImage(path, 1);		//load color image
+		//IplImage* img = cvLoadImage("C:/Users/Sayan/Pictures/trial.jpg", 1);							//including the source image file
+>>>>>>> origin/master
 		IplImage* gray = cvCreateImage(cvSize(img->width, img->height), 8, 1);					//create a grayscale blank image file
 
 		const int DETECTION_WIDTH = 320;
@@ -80,7 +85,7 @@ int main()
 
 				}
 				cvResetImageROI(equi_img);
-				char path1[60] = "E:/python opencv project/minor_extracted_faces/";
+				char path1[60] = "E:/python opencv project/minor_extracted_faces/";		//give path to your facial output folder
 				char file1[4];
 				char extn1[5] = ".jpg";
 				sprintf_s(file1, "%d", count1);
@@ -97,7 +102,7 @@ int main()
 		else
 		{
 			
-			char path2[60] = "E:/python opencv project/minor_extracted_nonfaces/";
+			char path2[60] = "E:/python opencv project/minor_extracted_nonfaces/";		//give path to your non-facial output folder
 			char file2[4];
 			char extn2[5] = ".jpg";
 			sprintf_s(file2, "%d", j);
